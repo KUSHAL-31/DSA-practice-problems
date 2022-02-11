@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.associations": {
+      "iostream": "cpp",
+      "ostream": "cpp"
+    },
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true
+  }
+}
