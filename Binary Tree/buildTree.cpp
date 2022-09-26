@@ -111,37 +111,36 @@ void traversalWithSeparator(Node *root)
     }
 }
 
-/* Function prototypes */
-void printCurrentLevel(Node *root, int level);
-int height(Node *Node);
-
-/* Function to print level
-order traversal a tree*/
-void levelOrderRecursion(Node *root)
+void reverseLevelOrderTraversal(Node *root)
 {
-    int h = height(root);
-    int i;
-    for (i = 1; i <= h; i++)
-        printCurrentLevel(root, i);
-}
-
-/* Print Nodes at a current level */
-void printCurrentLevel(Node *root, int level)
-{
-    if (root == NULL)
-        return;
-    if (level == 1)
-        cout << root->data << " ";
-    else if (level > 1)
+    stack<Node *> s;
+    queue<Node *> q;
+    q.push(root);
+    while (!q.empty())
     {
-        printCurrentLevel(root->left, level - 1);
-        printCurrentLevel(root->right, level - 1);
+        Node *temp = q.front();
+        q.pop();
+        s.push(temp);
+        if (temp->left)
+        {
+            q.push(temp->left);
+        }
+        if (temp->right)
+        {
+            q.push(temp->right);
+        }
+    }
+    while (!s.empty())
+    {
+        cout << s.top()->data << " ";
+        s.pop();
     }
 }
 
-/* Compute the "height" of a tree -- the number of
-    Nodes along the longest path from the root Node
-    down to the farthest leaf Node.*/
+void reverseLevelOrderWithSeparator(Node *root)
+{
+}
+
 int height(Node *Node)
 {
     if (Node == NULL)
@@ -164,6 +163,35 @@ int height(Node *Node)
     }
 }
 
+void printCurrentLevel(Node *root, int level)
+{
+    if (root == NULL)
+        return;
+    if (level == 1)
+        cout << root->data << " ";
+    else if (level > 1)
+    {
+        printCurrentLevel(root->left, level - 1);
+        printCurrentLevel(root->right, level - 1);
+    }
+}
+
+void levelOrderRecursion(Node *root)
+{
+    int h = height(root);
+    int i;
+    for (i = 1; i <= h; i++)
+        printCurrentLevel(root, i);
+}
+
+void revreseLevelRecursion(Node *root)
+{
+    int h = height(root);
+    int i;
+    for (i = h; i >= 1; i--)
+        printCurrentLevel(root, i);
+}
+
 int main()
 {
     // struct Node *root;
@@ -174,7 +202,14 @@ int main()
     // 1 3 7 -1 -1 11 -1 -1 5 17 -1 -1 -1
     cout << "Printing the level order traversal : " << endl;
     traversalWithSeparator(root);
+    cout << endl;
+    cout << "Printing reverse order traversal : " << endl;
+    reverseLevelOrderTraversal(root);
+    cout << endl;
     cout << "Printing the level order traversal with recursion : " << endl;
     levelOrderRecursion(root);
+    cout << endl;
+    cout << "Printing the rerverse level order traversal with recursion : " << endl;
+    revreseLevelRecursion(root);
     return 0;
 }
